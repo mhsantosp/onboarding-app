@@ -27,9 +27,14 @@
       Crear cuenta
     </button>
 
-    @if (lastCreatedAccountMessage) {
+    @if (message && messageType === 'error') {
+      <p class="text-sm text-red-600 mt-1">
+        {{ message }}
+      </p>
+    }
+    @if (message && messageType === 'success') {
       <p class="text-sm text-emerald-700 mt-1">
-        {{ lastCreatedAccountMessage }}
+        {{ message }}
       </p>
     }
   </div>

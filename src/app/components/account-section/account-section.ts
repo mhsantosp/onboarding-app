@@ -14,22 +14,38 @@ export class AccountSection {
     fullName: string;
     email: string;
   }[] = [];
+
   selectedDocumentNumber: string | null = null;
-  lastCreatedAccountMessage: string | null = null;
+
+  // diferenciamos mensaje y tipo (error / success)
+  message: string | null = null;
+  messageType: 'error' | 'success' | null = null;
+
   onCreateAccount(): void {
+    // limpiamos el mensaje anterior
+    this.message = null;
+    this.messageType = null;
+
     if (!this.selectedDocumentNumber) {
-      this.lastCreatedAccountMessage = 'Selecciona un cliente primero.';
+      this.message = 'Selecciona un cliente primero.';
+      this.messageType = 'error';
       return;
     }
+
     const customer = this.customers.find(
       (c) => c.documentNumber === this.selectedDocumentNumber,
     );
+
     if (!customer) {
-      this.lastCreatedAccountMessage = 'Cliente no encontrado.';
+      this.message = 'Cliente no encontrado.';
+      this.messageType = 'error';
       return;
     }
+
     // Aquí luego llamaremos al backend; por ahora solo log:
     console.log('Crear cuenta para:', customer);
-    this.lastCreatedAccountMessage = `Cuenta creada (simulada) para ${customer.fullName}`;
+
+    this.message = `Cuenta creada (simulada) para ${customer.fullName}`;
+    this.messageType = 'success';
   }
 }
