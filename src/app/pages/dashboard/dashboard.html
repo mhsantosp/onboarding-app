@@ -1,0 +1,14 @@
+<h1>Apertura de Cuentas</h1>
+
+<div class="container">
+  <div class="customers-section">
+    <h2>Clientes</h2>
+    <app-customer-form (customerCreated)="onCustomerCreated($event)"></app-customer-form>
+    <app-customer-list [customers]="customers"></app-customer-list>
+  </div>
+
+  <div class="accounts-section">
+    <h2>Cuentas</h2>
+    <app-account-section [customers]="customers"></app-account-section>
+  </div>
+</div>

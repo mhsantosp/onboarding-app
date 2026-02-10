@@ -1,0 +1,25 @@
+@if (customers.length > 0) {
+  <div>
+    <label for="customerSelect">Cliente</label>
+    <select
+      id="customerSelect"
+      [(ngModel)]="selectedDocumentNumber"
+      name="customerSelect"
+    >
+      <option [ngValue]="null">Selecciona un cliente</option>
+      @for (c of customers; track c.documentNumber) {
+        <option [ngValue]="c.documentNumber">
+          {{ c.fullName }} ({{ c.documentType }} {{ c.documentNumber }})
+        </option>
+      }
+    </select>
+
+    <button type="button" (click)="onCreateAccount()">Crear cuenta</button>
+
+    @if (lastCreatedAccountMessage) {
+      <p>{{ lastCreatedAccountMessage }}</p>
+    }
+  </div>
+} @else {
+  <p>No hay clientes para crear cuentas.</p>
+}

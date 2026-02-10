@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.customers-section,
+.accounts-section {
+  flex: 1;
+}
