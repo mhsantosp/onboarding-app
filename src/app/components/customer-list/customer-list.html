@@ -1,24 +1,24 @@
 @if (customers.length > 0) {
-  <table>
-    <thead>
+  <table class="min-w-full text-sm border border-slate-200 rounded-md overflow-hidden">
+    <thead class="bg-slate-50">
       <tr>
-        <th>Tipo</th>
-        <th>Documento</th>
-        <th>Nombre</th>
-        <th>Email</th>
+        <th class="px-3 py-2 text-left font-semibold text-slate-700">Tipo</th>
+        <th class="px-3 py-2 text-left font-semibold text-slate-700">Documento</th>
+        <th class="px-3 py-2 text-left font-semibold text-slate-700">Nombre</th>
+        <th class="px-3 py-2 text-left font-semibold text-slate-700">Email</th>
       </tr>
     </thead>
     <tbody>
       @for (c of customers; track c.documentNumber) {
-        <tr>
-          <td>{{ c.documentType }}</td>
-          <td>{{ c.documentNumber }}</td>
-          <td>{{ c.fullName }}</td>
-          <td>{{ c.email }}</td>
+        <tr class="border-t border-slate-200">
+          <td class="px-3 py-2 text-slate-800">{{ c.documentType }}</td>
+          <td class="px-3 py-2 text-slate-800">{{ c.documentNumber }}</td>
+          <td class="px-3 py-2 text-slate-800">{{ c.fullName }}</td>
+          <td class="px-3 py-2 text-slate-800">{{ c.email }}</td>
         </tr>
       }
     </tbody>
   </table>
 } @else {
-  <p>No hay clientes todavía.</p>
+  <p class="text-sm text-slate-500">No hay clientes todavía.</p>
 }

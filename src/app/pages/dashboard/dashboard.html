@@ -1,14 +1,18 @@
-<h1>Apertura de Cuentas</h1>
+<h1 class="text-3xl font-semibold text-slate-900 mb-6">
+  Apertura de Cuentas
+</h1>
 
-<div class="container">
-  <div class="customers-section">
-    <h2>Clientes</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200">
+    <h2 class="text-xl font-semibold text-slate-800 mb-4">Clientes</h2>
     <app-customer-form (customerCreated)="onCustomerCreated($event)"></app-customer-form>
-    <app-customer-list [customers]="customers"></app-customer-list>
+    <div class="mt-4">
+      <app-customer-list [customers]="customers"></app-customer-list>
+    </div>
   </div>
 
-  <div class="accounts-section">
-    <h2>Cuentas</h2>
+  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200">
+    <h2 class="text-xl font-semibold text-slate-800 mb-4">Cuentas</h2>
     <app-account-section [customers]="customers"></app-account-section>
   </div>
 </div>
