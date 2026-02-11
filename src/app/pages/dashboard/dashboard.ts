@@ -3,11 +3,10 @@ import { CustomerForm } from '../../components/customer-form/customer-form';
 import { CustomerList } from '../../components/customer-list/customer-list';
 import { AccountSection } from '../../components/account-section/account-section';
 import { CustomerService, Customer } from '../../services/customer/customer.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CustomerForm, CustomerList, AccountSection, JsonPipe],
+  imports: [CustomerForm, CustomerList, AccountSection],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
