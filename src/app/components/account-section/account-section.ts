@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AccountService } from '../../services/account/account.service';
+import { Customer } from '../../services/customer/customer.service';
 
 @Component({
   selector: 'app-account-section',
@@ -8,18 +10,18 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './account-section.css',
 })
 export class AccountSection {
-  @Input() customers: {
-    documentType: string;
-    documentNumber: string;
-    fullName: string;
-    email: string;
-  }[] = [];
+  @Input() customers: Customer[] = [];
 
   selectedDocumentNumber: string | null = null;
 
   // diferenciamos mensaje y tipo (error / success)
   message: string | null = null;
   messageType: 'error' | 'success' | null = null;
+
+  constructor(
+    private readonly accountService: AccountService,
+    private readonly cdr: ChangeDetectorRef,
+  ) {}
 
   onCreateAccount(): void {
     // limpiamos el mensaje anterior
@@ -42,10 +44,29 @@ export class AccountSection {
       return;
     }
 
-    // Aquí luego llamaremos al backend; por ahora solo log:
-    console.log('Crear cuenta para:', customer);
+    // Llamamos al backend para crear la cuenta real
+    this.accountService.createAccount(Number(customer.id)).subscribe({
+      next: (account) => {
+        this.message = `Cuenta creada para ${customer.fullName} con número ${account.accountNumber}`;
+        this.messageType = 'success';
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error creando cuenta', error);
 
-    this.message = `Cuenta creada (simulada) para ${customer.fullName}`;
-    this.messageType = 'success';
+        const backendMessage: string | undefined = error?.error?.message;
+
+        if (error.status === 400) {
+          this.message = backendMessage ?? 'Solicitud inválida al crear la cuenta.';
+        } else if (error.status === 404) {
+          this.message = backendMessage ?? 'Cliente no encontrado en el backend.';
+        } else {
+          this.message = 'Ocurrió un error inesperado al crear la cuenta.';
+        }
+
+        this.messageType = 'error';
+        this.cdr.detectChanges();
+      },
+    });
   }
 }

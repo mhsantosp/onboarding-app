@@ -53,7 +53,6 @@ export class CustomerForm {
       fullName,
       email,
     };
-    console.log('Customer form values:', customer);
     this.customerCreated.emit(customer);
     form.reset();
   }
